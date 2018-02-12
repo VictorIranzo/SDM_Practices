@@ -22,7 +22,7 @@
         <!--Credits activity-->
         <activity
             android:name="labs.sdm.game.activities.AboutActivity"
-            android:label="@string/title_activity_about"
+            android:label="@string/about"
             android:parentActivityName="labs.sdm.game.activities.DashboardActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value="labs.sdm.game.activities.DashboardActivity"></meta-data>
@@ -32,7 +32,7 @@
         <!--Activity to get new quotations-->
         <activity
             android:name="labs.sdm.game.activities.PlayActivity"
-            android:label="@string/title_activity_quotations"
+            android:label="@string/title_play"
             android:parentActivityName="labs.sdm.game.activities.DashboardActivity">
         <meta-data android:name="android.support.PARENT_ACTIVITY"
             android:value="labs.sdm.game.activities.DashboardActivity"></meta-data>
@@ -42,7 +42,7 @@
     <!--Activity to configure the applications-->
         <activity
             android:name="labs.sdm.game.activities.SettingsActivity"
-            android:label="@string/title_activity_settings"
+            android:label="@string/title_settings"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:parentActivityName="labs.sdm.game.activities.DashboardActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
@@ -52,7 +52,7 @@
         <!--Activity to display and manage the favourite quotations-->
         <activity
             android:name="labs.sdm.game.activities.ScoresActivity"
-            android:label="@string/title_activity_favourite"
+            android:label="@string/title_scores"
             android:parentActivityName="labs.sdm.game.activities.DashboardActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value="labs.sdm.game.activities.DashboardActivity"></meta-data>

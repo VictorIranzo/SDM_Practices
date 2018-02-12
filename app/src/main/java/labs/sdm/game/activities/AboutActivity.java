@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2017. David de Andrés and Juan Carlos Ruiz, DISCA - UPV, Development of apps for mobile devices.
- */
-
 package labs.sdm.game.activities;
 
 import android.os.Bundle;

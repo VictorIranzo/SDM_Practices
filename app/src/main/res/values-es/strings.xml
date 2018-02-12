@@ -4,41 +4,19 @@
   -->
 
 <resources>
-    <string name="about">Acerca de</string>
-    <string name="about_text">QUOTATIONSHAKE por\n\nDavid de Andrés\n\nddandres@disca.upv.es\n\n\u00A9 SDM 2017</string>
-    <string name="action_add">Añadir</string>
-    <string name="action_clear_all">Borrar todo</string>
-    <string name="action_delete">Borrar</string>
-    <string name="action_refresh">Refrescar</string>
-    <string name="anonymous_author">No puede mostrarse información de autores anónimos</string>
-    <string name="category_web_service">Servicios web</string>
-    <string name="confirmation_clear">¿Estás seguro de que quieres borrar TODAS tus citas favoritas?</string>
-    <string name="confirmation_delete">¿Estás seguro de que quieres borrar esta cita?</string>
-    <string name="connection_not_available">No se dispone de conexión a Internet. Por favor, inténtalo más tarde</string>
-    <string name="favourites">Citas favoritas</string>
-    <string name="get_quotations">Obtener citas</string>
-    <string name="greetings">¡Hola %1s! ¡Pulsa refrescar para obtener una nueva cita!</string>
-    <string name="language_english">Inglés</string>
-    <string name="language_russian">Ruso</string>
-    <string name="nameless">Sin Nombre</string>
-    <string name="preference_http_method">Método HTTP</string>
-    <string name="preference_http_method_summary">Las peticiones web se realizarán utilizando el método HTTP seleccionado</string>
-    <string name="preference_name">Nombre de usuario</string>
-    <string name="preference_name_hint">Introduce tu nombre</string>
-    <string name="preference_name_summary">Nombre que identifica al usuario</string>
-    <string name="preference_quotation_language">Idioma de la cita</string>
-    <string name="preference_quotation_language_summary">Las citas se recibirán en el idioma seleccionado</string>
-    <string name="problem">Hubo un problema al intentar obtener la cita. Por favor, inténtalo más tarde</string>
+    <!--App name-->
+    <string name="app_name">¿Quién quiere ser millonario?</string>
+
+    <!--Strings used in the Dashboard activity-->
+    <string name="play">Jugar</string>
+    <string name="scores">Puntuaciones</string>
     <string name="settings">Configuración</string>
-    <string name="title_activity_about">Acerca de</string>
-    <string name="title_activity_favourite">Citas favoritas</string>
-    <string name="title_activity_quotations">Citas aleatorias</string>
-    <string name="title_activity_settings">Configuración</string>
-    <string name="sample_quotation">Esta es una cita de prueba</string>
-    <string name="sample_author">Este es un autor de prueba</string>
-    <string name="english">Inglés</string>
-    <string name="russian">Ruso</string>
-    <string name="deleteDialog">¿Estás seguro de borrar esta frase?</string>
-    <string name="no">No</string>
-    <string name="yes">Sí</string>
+    <string name="about">Acerca de</string>
+
+    <string name="about_text">Creado por Víctor Iranzo</string>
+
+    <string name="user_name">Nombre:</string>
+    <string name="preference_name_hint">Introduce tu nombre</string>
+    <string name="times_help">¿Cuántas veces puedes pedir ayuda?</string>
+
 </resources>
