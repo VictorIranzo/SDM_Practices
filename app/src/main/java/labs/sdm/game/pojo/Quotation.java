@@ -1,4 +1,4 @@
-package labs.sdm.quotationshake.pojo;
+package labs.sdm.game.pojo;
 
 /**
  * Created by vicirji on 07/02/2018.

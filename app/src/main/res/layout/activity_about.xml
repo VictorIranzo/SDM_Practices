@@ -13,7 +13,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:fillViewport="true"
-    tools:context="labs.sdm.quotationshake.activities.AboutActivity">
+    tools:context="labs.sdm.game.activities.AboutActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constrainstLayout"
@@ -21,17 +21,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ddandres" />
-
-        <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -45,7 +35,6 @@
             android:id="@+id/tvABout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
@@ -55,7 +44,6 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/activity_about_text_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/imageView1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

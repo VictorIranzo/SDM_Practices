@@ -2,14 +2,14 @@
  * Copyright (c) 2016. David de Andrés and Juan Carlos Ruiz, DISCA - UPV, Development of apps for mobile devices.
  */
 
-package labs.sdm.quotationshake.activities;
+package labs.sdm.game.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import labs.sdm.quotationshake.R;
+import labs.sdm.game.R;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -32,12 +32,12 @@ public class DashboardActivity extends AppCompatActivity {
 
             // Activity for getting a new quotation and adding it to favourites
             case R.id.bGetQuotations:
-                intent = new Intent(this, QuotationActivity.class);
+                intent = new Intent(this, PlayActivity.class);
                 break;
 
             // Activity for displaying and managing the favourite quotations
             case R.id.bFavourites:
-                intent = new Intent(this, FavouriteActivity.class);
+                intent = new Intent(this, ScoresActivity.class);
                 break;
 
             // Activity for configuring the application

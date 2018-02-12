@@ -2,7 +2,7 @@
  * Copyright (c) 2016. David de Andrés and Juan Carlos Ruiz, DISCA - UPV, Development of apps for mobile devices.
  */
 
-package labs.sdm.quotationshake.activities;
+package labs.sdm.game.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,16 +16,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import labs.sdm.quotationshake.R;
-import labs.sdm.quotationshake.adapters.QuotationAdapter;
-import labs.sdm.quotationshake.pojo.Quotation;
+import labs.sdm.game.R;
+import labs.sdm.game.adapters.QuotationAdapter;
+import labs.sdm.game.pojo.Quotation;
 
-public class FavouriteActivity extends AppCompatActivity {
+public class ScoresActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

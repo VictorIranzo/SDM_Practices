@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="labs.sdm.quotationshake">
+    package="labs.sdm.game">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme">
 
         <!--Dashboard activity-->
-        <activity android:name="labs.sdm.quotationshake.activities.DashboardActivity">
+        <activity android:name="labs.sdm.game.activities.DashboardActivity">
             <!--This is the entry point to the application-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,41 +21,41 @@
 
         <!--Credits activity-->
         <activity
-            android:name="labs.sdm.quotationshake.activities.AboutActivity"
+            android:name="labs.sdm.game.activities.AboutActivity"
             android:label="@string/title_activity_about"
-            android:parentActivityName="labs.sdm.quotationshake.activities.DashboardActivity">
+            android:parentActivityName="labs.sdm.game.activities.DashboardActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value="labs.sdm.quotationshake.activities.DashboardActivity"></meta-data>
+                android:value="labs.sdm.game.activities.DashboardActivity"></meta-data>
         </activity>
 
 
         <!--Activity to get new quotations-->
         <activity
-            android:name="labs.sdm.quotationshake.activities.QuotationActivity"
+            android:name="labs.sdm.game.activities.PlayActivity"
             android:label="@string/title_activity_quotations"
-            android:parentActivityName="labs.sdm.quotationshake.activities.DashboardActivity">
+            android:parentActivityName="labs.sdm.game.activities.DashboardActivity">
         <meta-data android:name="android.support.PARENT_ACTIVITY"
-            android:value="labs.sdm.quotationshake.activities.DashboardActivity"></meta-data>
+            android:value="labs.sdm.game.activities.DashboardActivity"></meta-data>
         </activity>
 
 
     <!--Activity to configure the applications-->
         <activity
-            android:name="labs.sdm.quotationshake.activities.SettingsActivity"
+            android:name="labs.sdm.game.activities.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:windowSoftInputMode="stateAlwaysHidden"
-            android:parentActivityName="labs.sdm.quotationshake.activities.DashboardActivity">
+            android:parentActivityName="labs.sdm.game.activities.DashboardActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value="labs.sdm.quotationshake.activities.DashboardActivity"></meta-data>
+                android:value="labs.sdm.game.activities.DashboardActivity"></meta-data>
         </activity>
 
         <!--Activity to display and manage the favourite quotations-->
         <activity
-            android:name="labs.sdm.quotationshake.activities.FavouriteActivity"
+            android:name="labs.sdm.game.activities.ScoresActivity"
             android:label="@string/title_activity_favourite"
-            android:parentActivityName="labs.sdm.quotationshake.activities.DashboardActivity">
+            android:parentActivityName="labs.sdm.game.activities.DashboardActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value="labs.sdm.quotationshake.activities.DashboardActivity"></meta-data>
+                android:value="labs.sdm.game.activities.DashboardActivity"></meta-data>
         </activity>
 
     </application>

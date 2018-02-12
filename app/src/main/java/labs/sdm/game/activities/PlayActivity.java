@@ -2,20 +2,17 @@
  * Copyright (c) 2016. David de Andrés and Juan Carlos Ruiz, DISCA - UPV, Development of apps for mobile devices.
  */
 
-package labs.sdm.quotationshake.activities;
+package labs.sdm.game.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import labs.sdm.quotationshake.R;
+import labs.sdm.game.R;
 
-public class QuotationActivity extends AppCompatActivity {
+public class PlayActivity extends AppCompatActivity {
 
     // Whether the user can ask for a new quotation, so the option can appear in the ActionBar
     boolean newQuotation = true;

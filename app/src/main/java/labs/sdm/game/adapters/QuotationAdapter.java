@@ -1,6 +1,5 @@
-package labs.sdm.quotationshake.adapters;
+package labs.sdm.game.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,8 +11,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import labs.sdm.quotationshake.R;
-import labs.sdm.quotationshake.pojo.Quotation;
+import labs.sdm.game.R;
+import labs.sdm.game.pojo.Quotation;
 
 /**
  * Created by vicirji on 07/02/2018.

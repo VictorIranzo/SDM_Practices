@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\vicirji\Documents\GitHub\QuotationShake_BasicArchitecture\QuotationShake.iml" filepath="C:\Users\vicirji\Documents\GitHub\QuotationShake_BasicArchitecture\QuotationShake.iml" />
-      <module fileurl="file://$PROJECT_DIR$/QuotationShake_BasicArchitecture.iml" filepath="$PROJECT_DIR$/QuotationShake_BasicArchitecture.iml" />
-      <module fileurl="file://D:\Android\QuotationShake_BasicArchitecture\QuotationShake_BasicArchitecture.iml" filepath="D:\Android\QuotationShake_BasicArchitecture\QuotationShake_BasicArchitecture.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SDM_Practices.iml" filepath="$PROJECT_DIR$/SDM_Practices.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\Android\QuotationShake_BasicArchitecture\app\app.iml" filepath="D:\Android\QuotationShake_BasicArchitecture\app\app.iml" />
-      <module fileurl="file://C:\Users\vicirji\Documents\GitHub\QuotationShake_BasicArchitecture\app\app.iml" filepath="C:\Users\vicirji\Documents\GitHub\QuotationShake_BasicArchitecture\app\app.iml" />
     </modules>
   </component>
 </project>

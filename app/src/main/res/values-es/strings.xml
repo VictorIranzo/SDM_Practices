@@ -36,4 +36,9 @@
     <string name="title_activity_settings">Configuración</string>
     <string name="sample_quotation">Esta es una cita de prueba</string>
     <string name="sample_author">Este es un autor de prueba</string>
+    <string name="english">Inglés</string>
+    <string name="russian">Ruso</string>
+    <string name="deleteDialog">¿Estás seguro de borrar esta frase?</string>
+    <string name="no">No</string>
+    <string name="yes">Sí</string>
 </resources>

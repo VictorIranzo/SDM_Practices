@@ -1,4 +1,4 @@
-package labs.sdm.quotationshake;
+package labs.sdm.game;
 
 import org.junit.Test;
 

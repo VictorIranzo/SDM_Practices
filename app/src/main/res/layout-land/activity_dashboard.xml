@@ -9,7 +9,7 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:gravity="center"
-    tools:context="labs.sdm.quotationshake.activities.DashboardActivity">
+    tools:context="labs.sdm.game.activities.DashboardActivity">
 
     <!--Buttons equally distributed along the screen to access each activity of the application-->
 
