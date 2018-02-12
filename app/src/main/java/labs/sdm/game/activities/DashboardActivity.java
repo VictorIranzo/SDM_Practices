@@ -27,12 +27,12 @@ public class DashboardActivity extends AppCompatActivity {
         switch (v.getId()) {
 
             // Activity for getting a new quotation and adding it to favourites
-            case R.id.bGetQuotations:
+            case R.id.bPlay:
                 intent = new Intent(this, PlayActivity.class);
                 break;
 
             // Activity for displaying and managing the favourite quotations
-            case R.id.bFavourites:
+            case R.id.bScores:
                 intent = new Intent(this, ScoresActivity.class);
                 break;
 

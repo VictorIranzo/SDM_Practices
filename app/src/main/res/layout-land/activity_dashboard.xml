@@ -13,7 +13,7 @@
 
 
     <Button
-        android:id="@+id/bGetQuotations"
+        android:id="@+id/bPlay"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -23,7 +23,7 @@
         android:onClick="dashboardButtonClicked"
         android:text="@string/play"
         app:layout_constraintBottom_toTopOf="@+id/bSettings"
-        app:layout_constraintEnd_toStartOf="@+id/bFavourites"
+        app:layout_constraintEnd_toStartOf="@+id/bScores"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,11 +40,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/bAbout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bGetQuotations" />
+        app:layout_constraintTop_toBottomOf="@+id/bPlay" />
 
 
     <Button
-        android:id="@+id/bFavourites"
+        android:id="@+id/bScores"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -55,7 +55,7 @@
         android:text="@string/scores"
         app:layout_constraintBottom_toTopOf="@+id/bAbout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bGetQuotations"
+        app:layout_constraintStart_toEndOf="@+id/bPlay"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -71,6 +71,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/bSettings"
-        app:layout_constraintTop_toBottomOf="@+id/bFavourites" />
+        app:layout_constraintTop_toBottomOf="@+id/bScores" />
 
 </android.support.constraint.ConstraintLayout>
