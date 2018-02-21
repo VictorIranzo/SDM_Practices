@@ -57,6 +57,28 @@
                 android:entries="@array/helpTimes_array"
                 android:textAlignment="viewEnd" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttAddFriend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/add_friend" />
+
+            <EditText
+                android:id="@+id/nameFriendText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/enter_friend_name"
+                android:inputType="textPersonName" />
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

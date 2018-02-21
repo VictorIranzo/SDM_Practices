@@ -15,5 +15,7 @@
     <string name="user_name">Nombre:</string>
     <string name="preference_name_hint">Introduce tu nombre</string>
     <string name="times_help">¿Cuántas veces puedes pedir ayuda?</string>
+    <string name="add_friend">Añadir amigo</string>
+    <string name="enter_friend_name">Introduce el nombre de tu amigo</string>
 
 </resources>
