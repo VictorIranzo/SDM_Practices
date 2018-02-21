@@ -30,10 +30,10 @@ public class DashboardActivity extends AppCompatActivity {
         Toast.makeText(this, item.getTitle(),Toast.LENGTH_SHORT).show();
 
         switch (item.getItemId()){
-            case R.id.action_bar_settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
+            case R.id.action_bar_about:
+                Intent intent = new Intent(this, AboutActivity.class);
                 startActivity(intent);
-                
+
                 break;
         }
 
