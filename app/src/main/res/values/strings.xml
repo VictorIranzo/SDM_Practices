@@ -15,4 +15,8 @@
     <string name="times_help">How many times can you ask for help?</string>
     <string name="add_friend">Add friend</string>
     <string name="enter_friend_name">Enter your friend\'s name</string>
+
+    <string name="tab_local">Local</string>
+    <string name="tab_friends">Friends</string>
+
 </resources>

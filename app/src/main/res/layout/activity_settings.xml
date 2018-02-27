@@ -67,6 +67,9 @@
                 android:id="@+id/buttAddFriend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_weight="1"
                 android:text="@string/add_friend" />
 
@@ -74,6 +77,9 @@
                 android:id="@+id/nameFriendText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/enter_friend_name"

@@ -18,4 +18,7 @@
     <string name="add_friend">Añadir amigo</string>
     <string name="enter_friend_name">Introduce el nombre de tu amigo</string>
 
+    <string name="tab_local">Local</string>
+    <string name="tab_friends">Amigos</string>
+
 </resources>
