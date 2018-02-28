@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import labs.sdm.game.R;
 
@@ -20,15 +19,13 @@ public class DashboardActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_settings, menu);
+        getMenuInflater().inflate(R.menu.menu_dashboard, menu);
 
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        Toast.makeText(this, item.getTitle(),Toast.LENGTH_SHORT).show();
-
         switch (item.getItemId()){
             case R.id.action_bar_about:
                 Intent intent = new Intent(this, AboutActivity.class);

@@ -9,6 +9,7 @@
     <string name="title_about">About</string>
 
     <string name="about_text">Created by Víctor Iranzo</string>
+    <string name="creator_name">Víctor Iranzo</string>
 
     <string name="user_name">Name:</string>
     <string name="preference_name_hint">Enter your name</string>
@@ -18,4 +19,6 @@
 
     <string name="tab_local">Local</string>
     <string name="tab_friends">Friends</string>
+    <string name="delete_score">Delete local score</string>
+
 </resources>

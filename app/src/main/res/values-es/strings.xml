@@ -11,6 +11,7 @@
     <string name="about">Acerca de</string>
 
     <string name="about_text">Creado por Víctor Iranzo</string>
+    <string name="creator_name">Víctor Iranzo</string>
 
     <string name="user_name">Nombre:</string>
     <string name="preference_name_hint">Introduce tu nombre</string>
@@ -20,5 +21,6 @@
 
     <string name="tab_local">Local</string>
     <string name="tab_friends">Amigos</string>
+    <string name="delete_score">Eliminar puntuación local</string>
 
 </resources>

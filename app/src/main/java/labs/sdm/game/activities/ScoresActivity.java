@@ -2,6 +2,7 @@ package labs.sdm.game.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TabHost;
@@ -15,12 +16,13 @@ import labs.sdm.game.R;
 public class ScoresActivity extends AppCompatActivity {
 
     public ArrayList<HashMap<String,String>> scores = new ArrayList<>();
+    public TabHost host;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scores);
-        TabHost host = (TabHost) findViewById(R.id.tabHost_Scores);
+        host = (TabHost) findViewById(R.id.tabHost_Scores);
         host.setup();
 
         TabSpec spec1 = host.newTabSpec(getResources().getString(R.string.tab_local));
@@ -44,6 +46,22 @@ public class ScoresActivity extends AppCompatActivity {
                 new String[]{"player","score"}, new int[]{R.id.textName, R.id.textScore});
 
         localTableScores.setAdapter(adapter);
+
+        host.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String s) {
+                invalidateOptionsMenu();
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        if(host.getCurrentTab() == 0){
+            getMenuInflater().inflate(R.menu.menu_local_scores, menu);
+        }
+
+        return true;
     }
 
     private void addScore(String name, int points){
