@@ -2,7 +2,6 @@ package labs.sdm.game.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Adapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TabHost;
@@ -41,8 +40,8 @@ public class ScoresActivity extends AppCompatActivity {
         this.getFriendsScores();
         this.getLocalScores();
 
-        SimpleAdapter adapter = new SimpleAdapter(this, scores, android.R.layout.simple_list_item_2,
-                new String[]{"player","score"}, new int[]{android.R.id.text1, android.R.id.text2});
+        SimpleAdapter adapter = new SimpleAdapter(this, scores, R.layout.score_list_row,
+                new String[]{"player","score"}, new int[]{R.id.textName, R.id.textScore});
 
         localTableScores.setAdapter(adapter);
     }

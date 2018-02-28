@@ -57,7 +57,7 @@
     </ScrollView>
 
     <TextView
-        android:id="@+id/tvAuthor"
+        android:id="@+id/textScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
