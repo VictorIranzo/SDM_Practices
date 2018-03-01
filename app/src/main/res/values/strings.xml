@@ -21,4 +21,9 @@
     <string name="tab_friends">Friends</string>
     <string name="delete_score">Delete local score</string>
 
+
+    <string name="play_for">Play for: </string>
+    <string name="money">$</string>
+    <string name="numQuestion">Question: </string>
+
 </resources>

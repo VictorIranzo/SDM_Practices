@@ -66,25 +66,29 @@
             android:id="@+id/butAnswer1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="Button"
+            android:onClick="butAnswer1onClicked"/>
 
         <Button
             android:id="@+id/butAnswer2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="Button"
+            android:onClick="butAnswer2onClicked"/>
 
         <Button
             android:id="@+id/butAnswer3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="Button"
+            android:onClick="butAnswer3onClicked"/>
 
         <Button
             android:id="@+id/butAnswer4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="Button"
+            android:onClick="butAnswer4onClicked"/>
     </LinearLayout>
 
         <TextView

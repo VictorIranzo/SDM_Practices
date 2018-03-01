@@ -23,4 +23,7 @@
     <string name="tab_friends">Amigos</string>
     <string name="delete_score">Eliminar puntuación local</string>
 
+    <string name="play_for">Jugar por: </string>
+    <string name="money">€</string>
+    <string name="numQuestion">Pregunta: </string>
 </resources>
