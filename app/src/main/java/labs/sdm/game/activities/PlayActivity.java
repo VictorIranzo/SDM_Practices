@@ -67,12 +67,13 @@ public class PlayActivity extends AppCompatActivity {
 
     @Override
     protected void onPause(){
-        super.onPause();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("current_question_num", currentQuestionNum);
         editor.putInt("available_hints", availableHints);
         editor.apply();
+
+        super.onPause();
     }
 
     private void GetNextQuestion() {
