@@ -1,7 +1,9 @@
-package labs.sdm.game.pojo;
+package labs.sdm.game.fakes;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import labs.sdm.game.pojo.Question;
 
 public class QuestionGenerator {
     public static List<Question> generateQuestionList() {

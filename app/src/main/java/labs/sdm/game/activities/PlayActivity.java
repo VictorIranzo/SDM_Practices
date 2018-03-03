@@ -13,8 +13,9 @@ import android.widget.TextView;
 import java.util.List;
 
 import labs.sdm.game.R;
+import labs.sdm.game.managers.QuestionManager;
 import labs.sdm.game.pojo.Question;
-import labs.sdm.game.pojo.QuestionGenerator;
+import labs.sdm.game.fakes.QuestionGenerator;
 
 public class PlayActivity extends AppCompatActivity {
 
@@ -49,7 +50,15 @@ public class PlayActivity extends AppCompatActivity {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         currentQuestionNum = preferences.getInt("current_question_num", 0);
-        availableHints = preferences.getInt("available_hints", 3);
+
+        // If available hints is -1 is because the last game has end, so the available hints is restart
+        // to the hints established in the settings view.
+        availableHints = preferences.getInt("available_hints", -1);
+
+        if(availableHints == -1)
+        {
+            availableHints = preferences.getInt("total_hints",3);
+        }
 
         textQuestion = (TextView) findViewById(R.id.textQuestion);
         textPlayFor = (TextView) findViewById(R.id.textMoneyPlay);
@@ -60,11 +69,14 @@ public class PlayActivity extends AppCompatActivity {
         buttonAnswer3 = (Button) findViewById(R.id.butAnswer3);
         buttonAnswer4 = (Button) findViewById(R.id.butAnswer4);
 
-        questions = QuestionGenerator.generateQuestionList();
+        questions = QuestionManager.GetQuestions(this);
 
         GetNextQuestion();
+        checkIfDisableHints();
     }
 
+    // This is the unique place where this preferences is stored. It is called when we click Back,
+    // minimize the app or finish the activity by code.
     @Override
     protected void onPause(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -76,6 +88,7 @@ public class PlayActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    // Gets the next question, updating all the visual information and restarting formats.
     private void GetNextQuestion() {
         currentQuestion = questions.get(currentQuestionNum);
 
@@ -88,10 +101,11 @@ public class PlayActivity extends AppCompatActivity {
         buttonAnswer3.setText(currentQuestion.getAnswer3());
         buttonAnswer4.setText(currentQuestion.getAnswer4());
 
-        enabledAllAnswerButtons();
+        enableAllAnswerButtons();
         deleteHighlightAnswerButtons();
     }
 
+    // If the answer is correct, we pass to the next question. If not, the game is ended.
     private void checkIfCorrect(int answer) {
         if(Integer.parseInt(currentQuestion.getRight()) == answer) {
             currentQuestionNum++;
@@ -99,7 +113,7 @@ public class PlayActivity extends AppCompatActivity {
         } else{
             // TODO: Decide what to do when a wrong answer occurs.
             storeScore();
-            this.finish();
+            endGame();
         }
     }
 
@@ -115,28 +129,33 @@ public class PlayActivity extends AppCompatActivity {
         checkIfCorrect(3);
     }
 
-    public void butAnswer4onClicked(View v) {
-        checkIfCorrect(4);
-    }
+    public void butAnswer4onClicked(View v) { checkIfCorrect(4); }
 
+    // Highligths 1 answer button and check if all the hints have been used.
     public void butAudienceHintonClicked(View v){
+        availableHints--;
         hightLightButtonAnswer(Integer.parseInt(currentQuestion.getAudience()));
         checkIfDisableHints();
     }
 
+    // Highligths 1 answer button and check if all the hints have been used.
     public void butCallHintonClicked(View v){
+        availableHints--;
         hightLightButtonAnswer(Integer.parseInt(currentQuestion.getPhone()));
         checkIfDisableHints();
     }
 
+    // Disables 2 answer buttons and check if all the hints have been used.
     public void butFiftyHintonClicked(View v){
+        availableHints--;
         disabledButtonAnswer(Integer.parseInt(currentQuestion.getFifty1()));
         disabledButtonAnswer(Integer.parseInt(currentQuestion.getFifty2()));
         checkIfDisableHints();
     }
 
+    // After using a hint and when the activity is created this check is passed to disable hint buttons
+    // if no more hints are available.
     private void checkIfDisableHints(){
-        availableHints--;
         if(availableHints < 1){
             // TODO: Review if this has to be enabled at the end of the game.
             hintCall.setEnabled(false);
@@ -145,15 +164,18 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
+    // Highlights a button that maybe is the correct answer.
     private void hightLightButtonAnswer(int answer){
         // TODO: Do this better, it is difficult to see it.
         getButtonAnswerByIndex(answer).setTypeface(Typeface.DEFAULT_BOLD);
     }
 
+    // Disables an answer button after a hint is used.
     private void disabledButtonAnswer(int answer){
         getButtonAnswerByIndex(answer).setEnabled(false);
     }
 
+    // Returns the button instance of the passed index answer button.
     private Button getButtonAnswerByIndex(int answer){
         switch (answer){
             case 1: return buttonAnswer1;
@@ -165,13 +187,15 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
-    private void enabledAllAnswerButtons(){
+    // Called for every new question.
+    private void enableAllAnswerButtons(){
         buttonAnswer1.setEnabled(true);
         buttonAnswer2.setEnabled(true);
         buttonAnswer3.setEnabled(true);
         buttonAnswer4.setEnabled(true);
     }
 
+    // Called for every new question.
     private void deleteHighlightAnswerButtons() {
         buttonAnswer1.setTypeface(Typeface.DEFAULT);
         buttonAnswer2.setTypeface(Typeface.DEFAULT);
@@ -180,12 +204,21 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     // TODO: Store score and go back to Menu.
+    // Stores score and ends the game.
     public void butLeaveonClicked(View v){
+        // TODO: Show confirmation dialog.
         storeScore();
-        this.finish();
+        endGame();
     }
 
-    private void storeScore(){
+    private void storeScore() {
 
+    }
+
+    private void endGame() {
+        // Only the attributes are set as then the onPause method is gonna be called.
+        currentQuestionNum = 0;
+        availableHints = -1;
+        this.finish();
     }
 }
