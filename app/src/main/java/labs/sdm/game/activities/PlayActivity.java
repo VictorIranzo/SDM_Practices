@@ -1,7 +1,9 @@
 package labs.sdm.game.activities;
 
 import android.content.SharedPreferences;
+import android.content.res.XmlResourceParser;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -10,10 +12,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import labs.sdm.game.R;
-import labs.sdm.game.managers.QuestionManager;
 import labs.sdm.game.pojo.Question;
 import labs.sdm.game.fakes.QuestionGenerator;
 
@@ -69,10 +74,16 @@ public class PlayActivity extends AppCompatActivity {
         buttonAnswer3 = (Button) findViewById(R.id.butAnswer3);
         buttonAnswer4 = (Button) findViewById(R.id.butAnswer4);
 
-        questions = QuestionManager.GetQuestions(this);
+        questions = new ArrayList<Question>();
+        new QuestionManager().execute();
+    }
 
-        GetNextQuestion();
-        checkIfDisableHints();
+    private void addQuestion(Question q){
+        questions.add(q);
+        if(questions.size()==1){
+            GetNextQuestion();
+            checkIfDisableHints();
+        }
     }
 
     // This is the unique place where this preferences is stored. It is called when we click Back,
@@ -220,5 +231,52 @@ public class PlayActivity extends AppCompatActivity {
         currentQuestionNum = 0;
         availableHints = -1;
         this.finish();
+    }
+
+    private class QuestionManager extends AsyncTask<Void, Question, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            XmlResourceParser parser = getResources().getXml(R.xml.questions);
+            List<Question> questions = new ArrayList<Question>();
+
+            try
+            {
+                int eventType = parser.getEventType();
+                while(eventType != XmlResourceParser.END_DOCUMENT)
+                {
+                    // In the comparison is better compare first the constant value (see joda rule) for
+                    // prevention of null values.
+                    if(!"quizz".equals(parser.getName()) && eventType == XmlResourceParser.START_TAG){
+                        Question question = new Question(
+                                parser.getAttributeValue(null,"number"),
+                                parser.getAttributeValue(null,"text"),
+                                parser.getAttributeValue(null,"answer1"),
+                                parser.getAttributeValue(null,"answer2"),
+                                parser.getAttributeValue(null,"answer3"),
+                                parser.getAttributeValue(null,"answer4"),
+                                parser.getAttributeValue(null,"right"),
+                                parser.getAttributeValue(null,"audience"),
+                                parser.getAttributeValue(null,"phone"),
+                                parser.getAttributeValue(null,"fifty1"),
+                                parser.getAttributeValue(null,"fifty2")
+                        );
+                        questions.add(question);
+                        publishProgress(question);
+                    }
+                    parser.next();
+                    eventType = parser.getEventType();
+                }
+            }
+            catch (XmlPullParserException e) { e.printStackTrace(); }
+            catch (IOException e) { e.printStackTrace(); }
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Question... question){
+            addQuestion(question[0]);
+        }
     }
 }
