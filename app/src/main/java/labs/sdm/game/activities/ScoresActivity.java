@@ -1,6 +1,8 @@
 package labs.sdm.game.activities;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.widget.ListView;
@@ -10,12 +12,19 @@ import android.widget.TabHost.TabSpec;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import labs.sdm.game.R;
+import labs.sdm.game.persistence.GameDatabase;
+import labs.sdm.game.pojo.Score;
 
 public class ScoresActivity extends AppCompatActivity {
 
-    public ArrayList<HashMap<String,String>> scores = new ArrayList<>();
+    public ArrayList<HashMap<String,String>> localScores = new ArrayList<>();
+    public ArrayList<HashMap<String,String>> firendsScores = new ArrayList<>();
+
+    public SimpleAdapter localAdapter;
+
     public TabHost host;
 
     @Override
@@ -42,10 +51,10 @@ public class ScoresActivity extends AppCompatActivity {
         this.getFriendsScores();
         this.getLocalScores();
 
-        SimpleAdapter adapter = new SimpleAdapter(this, scores, R.layout.score_list_row,
+         localAdapter = new SimpleAdapter(this, localScores, R.layout.score_list_row,
                 new String[]{"player","score"}, new int[]{R.id.textName, R.id.textScore});
 
-        localTableScores.setAdapter(adapter);
+        localTableScores.setAdapter(localAdapter);
 
         host.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
@@ -64,20 +73,44 @@ public class ScoresActivity extends AppCompatActivity {
         return true;
     }
 
-    private void addScore(String name, int points){
+    private void addLocalScore(Score score){
+        localScores.add(getScoreHashMap(score));
+        localAdapter.notifyDataSetChanged();
+    }
+
+    private HashMap<String, String> getScoreHashMap(Score score) {
         HashMap<String,String> item = new HashMap<String,String>();
-        item.put("player", name);
-        item.put("score", String.valueOf(points));
-        scores.add(item);
+        item.put("player", score.getName());
+        item.put("score", String.valueOf(score.getScore()));
+        return item;
     }
 
     private void getFriendsScores() {
-        addScore("Paco",20);
-        addScore("Vicente",1000);
+
     }
 
     private void getLocalScores() {
-
+        new LocalScoresAsyncTask().execute();
     }
 
+
+    private class LocalScoresAsyncTask extends AsyncTask<Void, Score, Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            List<Score> scores = GameDatabase.getGameDatabase(ScoresActivity.this).scoreDAO().getOrderedScores();
+
+            for (Score score : scores)
+            {
+                publishProgress(score);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Score... score){
+            addLocalScore(score[0]);
+        }
+    }
 }

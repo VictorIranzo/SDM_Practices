@@ -14,8 +14,10 @@ import java.util.List;
 
 import labs.sdm.game.R;
 import labs.sdm.game.managers.QuestionManager;
+import labs.sdm.game.persistence.GameDatabase;
 import labs.sdm.game.pojo.Question;
 import labs.sdm.game.fakes.QuestionGenerator;
+import labs.sdm.game.pojo.Score;
 
 public class PlayActivity extends AppCompatActivity {
 
@@ -111,10 +113,18 @@ public class PlayActivity extends AppCompatActivity {
             currentQuestionNum++;
             GetNextQuestion();
         } else{
-            // TODO: Decide what to do when a wrong answer occurs.
-            storeScore();
+            // The order of this 2 method calls is important, as the score stored depends on the current
+            // question number, that is set to 0 in the endGame() method.
+            storeScore(getScoreWhenLose());
             endGame();
         }
+    }
+
+    // When the game is lost, the score depends on the question reached.
+    private int getScoreWhenLose() {
+        if(currentQuestionNum < 5) return 0;
+        if(currentQuestionNum < 10) return 1000;
+        return 32000;
     }
 
     public void butAnswer1onClicked(View v) {
@@ -207,12 +217,25 @@ public class PlayActivity extends AppCompatActivity {
     // Stores score and ends the game.
     public void butLeaveonClicked(View v){
         // TODO: Show confirmation dialog.
-        storeScore();
+        if(currentQuestionNum - 1 < 0) storeScore(0);
+        else storeScore(prizes[currentQuestionNum-1]);
+
         endGame();
     }
 
-    private void storeScore() {
+    // Stores the score using a new thread.
+    private void storeScore(int prize) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String user = prefs.getString("user_name","");
 
+        final Score score = new Score(user, prize);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                GameDatabase.getGameDatabase(PlayActivity.this).scoreDAO().addScore(score);
+            }
+        }).start();
     }
 
     private void endGame() {
