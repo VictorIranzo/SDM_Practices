@@ -16,6 +16,9 @@ public interface ScoreDAO {
     @Query("SELECT * FROM score_table ORDER BY score DESC")
     List<Score> getOrderedScores();
 
+    @Query("SELECT * FROM score_table WHERE name = :user AND score = :points LIMIT 1")
+    Score findScoreByUserandScore(String user, int points);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addScore(Score score);
 
