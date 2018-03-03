@@ -2,6 +2,7 @@ package labs.sdm.game.activities;
 
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -9,14 +10,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import labs.sdm.game.R;
 import labs.sdm.game.managers.QuestionManager;
 import labs.sdm.game.persistence.GameDatabase;
 import labs.sdm.game.pojo.Question;
-import labs.sdm.game.fakes.QuestionGenerator;
 import labs.sdm.game.pojo.Score;
 
 public class PlayActivity extends AppCompatActivity {
@@ -226,6 +242,7 @@ public class PlayActivity extends AppCompatActivity {
 
     // Stores the score using a new thread.
     private void storeScore(int prize) {
+        // Store in local DB.
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String user = prefs.getString("user_name","");
 
@@ -237,6 +254,9 @@ public class PlayActivity extends AppCompatActivity {
                 GameDatabase.getGameDatabase(PlayActivity.this).scoreDAO().addScore(score);
             }
         }).start();
+
+        // Store in the server.
+        new StoreScoreServerAsyncTask(user,prize).execute();
     }
 
     private void endGame() {
@@ -244,5 +264,70 @@ public class PlayActivity extends AppCompatActivity {
         currentQuestionNum = 0;
         availableHints = -1;
         this.finish();
+    }
+
+    private void showErrorMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private class StoreScoreServerAsyncTask extends AsyncTask<Void, String, Void>{
+
+        private String name;
+        private int score;
+
+        public StoreScoreServerAsyncTask(String name, int socre) {
+            this.name = name;
+            this.score = socre;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            String url = "https://wwtbamandroid.appspot.com/rest/highscores";
+
+            RequestQueue queue = Volley.newRequestQueue(PlayActivity.this);
+
+            Response.ErrorListener errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    // TODO: Move this messages to strings.xml
+                    String message = "An error occured.";
+                    if (volleyError instanceof NetworkError) {
+                        message = "Cannot connect to Internet...Please check your connection!";
+                    } else if (volleyError instanceof ServerError) {
+                        message = "The server could not be found. Please try again after some time!!";
+                    } else if (volleyError instanceof AuthFailureError) {
+                        message = "Cannot connect to Internet...Please check your connection!";
+                    } else if (volleyError instanceof ParseError) {
+                        message = "Parsing error! Please try again after some time!!";
+                    } else if (volleyError instanceof NoConnectionError) {
+                        message = "Cannot connect to Internet...Please check your connection!";
+                    } else if (volleyError instanceof TimeoutError) {
+                        message = "Connection TimeOut! Please check your internet connection.";
+                    }
+
+                    onProgressUpdate(message);
+                }
+            };
+
+            StringRequest postRequest = new StringRequest(Request.Method.PUT, url, null, errorListener) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("name", name);
+                    params.put("score", String.valueOf(score));
+
+                    return params;
+                }
+            };
+
+            queue.add(postRequest);
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... message){
+            showErrorMessage(message[0]);
+        }
     }
 }

@@ -1,13 +1,10 @@
 package labs.sdm.game.activities;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -30,7 +27,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import labs.sdm.game.R;
-import labs.sdm.game.pojo.Score;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -76,8 +72,9 @@ public class SettingsActivity extends AppCompatActivity {
         new AddFriendAsyncTask(user,friend).execute();
     }
 
-    private void showMessageResult(String message) {
+    private void showMessageResultAndEmptyFriendNameText(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        ((EditText) findViewById(R.id.nameFriendText)).setText("");
     }
 
     private class AddFriendAsyncTask extends AsyncTask<Void, String, Void>
@@ -146,7 +143,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         @Override
         protected void onProgressUpdate(String... message){
-            showMessageResult(message[0]);
+            showMessageResultAndEmptyFriendNameText(message[0]);
         }
     }
 }
