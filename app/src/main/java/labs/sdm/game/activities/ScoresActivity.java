@@ -26,6 +26,7 @@ import labs.sdm.game.pojo.Score;
 
 public class ScoresActivity extends AppCompatActivity {
 
+    // The type of the ArrayLists is this one as is the one required by the SimpleAdapter.
     public ArrayList<HashMap<String,String>> localScores = new ArrayList<>();
     public ArrayList<HashMap<String,String>> firendsScores = new ArrayList<>();
 
@@ -39,6 +40,8 @@ public class ScoresActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scores);
+
+        // Sets up the tab layout, setting the current tab to the Local one.
         host = (TabHost) findViewById(R.id.tabHost_Scores);
         host.setup();
 
@@ -54,36 +57,47 @@ public class ScoresActivity extends AppCompatActivity {
 
         host.setCurrentTab(0);
 
+        // Creates a SimpleAdapter for the Local tab list of scores.
         ListView localTableScores = findViewById(R.id.list1);
-
-        this.getFriendsScores();
-        this.getLocalScores();
 
          localAdapter = new SimpleAdapter(this, localScores, R.layout.score_list_row,
                 new String[]{"player","score"}, new int[]{R.id.textName, R.id.textScore});
 
         localTableScores.setAdapter(localAdapter);
 
+        // Updates the Local Score selected.
         localTableScores.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Gets the text user and score of the item selected.
                 String user = ((TextView)view.findViewById(R.id.textName)).getText().toString();
                 int points = Integer.parseInt(((TextView)view.findViewById(R.id.textScore)).getText().toString());
 
+                // This object is an aysnc task and when it's required, it's result is get.
+                // A call to the DB to get the Score object is needed as for deleting it we need
+                // that the Score id matches to the one in the database, and here we don't know it.
                 selectedLocalScore = new FindScoreByNameAndPointsAsyncTask(user, points).execute();
             }
         });
 
+        // Ivalidates the Options in the menu action bar when we change between tabs. This is done
+        // because the Friends tab doesn't allow Deleting a score. So every time we change the current
+        // tab, the onCreateOptionsMenu is called.
         host.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String s) {
                 invalidateOptionsMenu();
             }
         });
+
+        // Calls both async tasks to get the list of scores.
+        this.getFriendsScores();
+        this.getLocalScores();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
+        // Only adds the Delete score option for the Local tab.
         if(host.getCurrentTab() == 0){
             getMenuInflater().inflate(R.menu.menu_local_scores, menu);
         }
@@ -96,7 +110,11 @@ public class ScoresActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.action_bar_delete:
                 Score score = getSelectedScore();
+                if(score != null) {
+                    // Deletes the score from DB.
                     new DeleteLocalScoreAsyncTask(score).execute();
+
+                    // Deletes the score from the list of scores and udpates the view.
                     localScores.remove(getScoreHashMap(score));
                     localAdapter.notifyDataSetChanged();
 
@@ -111,8 +129,10 @@ public class ScoresActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Resolves the async task call.
     private Score getSelectedScore() {
-        if(selectedLocalScore != null) { // It can be null if any row has been selected.
+        // It can be null if any row has been selected or the last selected has been removed.
+        if(selectedLocalScore != null) {
             try {
                 return selectedLocalScore.get(1, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
@@ -126,11 +146,13 @@ public class ScoresActivity extends AppCompatActivity {
         return null;
     }
 
+    // This method is call by the async task. It adds the score to the list and updates the ListView.
     private void addLocalScore(Score score){
         localScores.add(getScoreHashMap(score));
         localAdapter.notifyDataSetChanged();
     }
 
+    // Transform the Score object to the HashMap required by the list of elements passed to the SimpleAdapter.
     private HashMap<String, String> getScoreHashMap(Score score) {
         HashMap<String,String> item = new HashMap<String,String>();
         item.put("player", score.getName());
@@ -138,10 +160,12 @@ public class ScoresActivity extends AppCompatActivity {
         return item;
     }
 
+    // Calls the aysnc task to get the ordered Friends scores.
     private void getFriendsScores() {
 
     }
 
+    // Calls the aysnc task to get the ordered Local scores.
     private void getLocalScores() {
         new GetLocalScoresAsyncTask().execute();
     }
@@ -169,7 +193,8 @@ public class ScoresActivity extends AppCompatActivity {
 
     private class DeleteLocalScoreAsyncTask extends AsyncTask<Void, Void, Void>{
 
-        // TODO: Refactor this to pass parameters using parameters in execute. https://stackoverflow.com/questions/6053602/what-arguments-are-passed-into-asynctaskarg1-arg2-arg3
+        // TODO: Refactor this to pass parameters using parameters in execute.
+        // https://stackoverflow.com/questions/6053602/what-arguments-are-passed-into-asynctaskarg1-arg2-arg3
         private Score deletedScore;
 
         public DeleteLocalScoreAsyncTask(Score deletedScore) {

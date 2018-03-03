@@ -27,6 +27,7 @@ public class SettingsActivity extends AppCompatActivity {
         hintsSpinner = (Spinner) findViewById(R.id.helpTimesSpinner);
     }
 
+    // Saves the user name and the number of hints when the app go on pause.
     @Override
     protected void onPause() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -40,6 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    // Sets the values of the components to the ones stored in the SharedPreferences.
     @Override
     protected void onResume() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);

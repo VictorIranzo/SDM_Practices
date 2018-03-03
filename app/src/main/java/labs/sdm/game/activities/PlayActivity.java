@@ -213,10 +213,11 @@ public class PlayActivity extends AppCompatActivity {
         buttonAnswer4.setTypeface(Typeface.DEFAULT);
     }
 
-    // TODO: Store score and go back to Menu.
+    // TODO: Show confirmation dialog.
     // Stores score and ends the game.
     public void butLeaveonClicked(View v){
-        // TODO: Show confirmation dialog.
+        // If the game is leaved in the first question, the actual prize is 0. Otherwise, it can be
+        // get from the prizes array.
         if(currentQuestionNum - 1 < 0) storeScore(0);
         else storeScore(prizes[currentQuestionNum-1]);
 

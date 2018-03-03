@@ -12,8 +12,10 @@ import java.util.List;
 import labs.sdm.game.R;
 import labs.sdm.game.pojo.Question;
 
+// Manager for reading the questions from the XML file with the questions.
 public class QuestionManager {
 
+    // If an error occurs, an empty list is returned.
     public static List<Question> GetQuestions(Context context)
     {
         XmlResourceParser parser = context.getResources().getXml(R.xml.questions);
@@ -24,8 +26,8 @@ public class QuestionManager {
             int eventType = parser.getEventType();
             while(eventType != XmlResourceParser.END_DOCUMENT)
             {
-                // In the comparison is better compare first the constant value (see joda rule) for
-                // prevention of null values.
+                // The quizz node is ignored as it's only a container. Note that in the comparison
+                // is better compare first the constant value (see joda rule) for prevention of null values.
                 if(!"quizz".equals(parser.getName()) && eventType == XmlResourceParser.START_TAG){
                     Question question = new Question(
                         parser.getAttributeValue(null,"number"),
