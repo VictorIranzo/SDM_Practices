@@ -71,7 +71,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_weight="1"
-                android:text="@string/add_friend" />
+                android:text="@string/add_friend"
+                android:onClick="butAddFriendClicked"/>
 
             <EditText
                 android:id="@+id/nameFriendText"
