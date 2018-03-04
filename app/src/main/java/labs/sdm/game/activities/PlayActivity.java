@@ -45,6 +45,8 @@ public class PlayActivity extends AppCompatActivity {
     private Button buttonAnswer3;
     private Button buttonAnswer4;
 
+    private String hintApplied;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +83,8 @@ public class PlayActivity extends AppCompatActivity {
 
         questions = QuestionManager.GetQuestions(this);
 
+        hintApplied = preferences.getString("hint_applied","");
+
         GetNextQuestion();
         checkIfDisableHints();
     }
@@ -113,6 +117,8 @@ public class PlayActivity extends AppCompatActivity {
 
         enableAllAnswerButtons();
         deleteHighlightAnswerButtons();
+
+        applyHintAfterPause();
     }
 
     // If the answer is correct, we pass to the next question. If not, the game is ended.
@@ -124,6 +130,7 @@ public class PlayActivity extends AppCompatActivity {
             }
             else {
                 currentQuestionNum++;
+                setHintApplied("");
                 GetNextQuestion();
             }
         } else{
@@ -131,6 +138,32 @@ public class PlayActivity extends AppCompatActivity {
             // question number, that is set to 0 in the endGame() method.
             showLoseDialog();
             storeScore(getScoreWhenLose());
+        }
+    }
+
+    // The hint applied is restart to null after a question is answered correctly.
+    private void setHintApplied(String hint) {
+        hintApplied = hint;
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putString("hint_applied", hintApplied);
+        editor.apply();
+    }
+
+    private void applyHintAfterPause()
+    {
+        switch(hintApplied){
+            case "call":
+                hightLightButtonAnswer(Integer.parseInt(currentQuestion.getPhone()));
+                break;
+            case "audience":
+                hightLightButtonAnswer(Integer.parseInt(currentQuestion.getAudience()));
+                break;
+            case "fifty":
+                disabledButtonAnswer(Integer.parseInt(currentQuestion.getFifty1()));
+                disabledButtonAnswer(Integer.parseInt(currentQuestion.getFifty2()));
+                break;
         }
     }
 
@@ -186,6 +219,7 @@ public class PlayActivity extends AppCompatActivity {
     // Highligths 1 answer button and check if all the hints have been used.
     public void butAudienceHintonClicked(View v){
         availableHints--;
+        setHintApplied("audience");
         hightLightButtonAnswer(Integer.parseInt(currentQuestion.getAudience()));
         checkIfDisableHints();
     }
@@ -193,6 +227,7 @@ public class PlayActivity extends AppCompatActivity {
     // Highligths 1 answer button and check if all the hints have been used.
     public void butCallHintonClicked(View v){
         availableHints--;
+        setHintApplied("call");
         hightLightButtonAnswer(Integer.parseInt(currentQuestion.getPhone()));
         checkIfDisableHints();
     }
@@ -200,6 +235,7 @@ public class PlayActivity extends AppCompatActivity {
     // Disables 2 answer buttons and check if all the hints have been used.
     public void butFiftyHintonClicked(View v){
         availableHints--;
+        setHintApplied("fifty");
         disabledButtonAnswer(Integer.parseInt(currentQuestion.getFifty1()));
         disabledButtonAnswer(Integer.parseInt(currentQuestion.getFifty2()));
         checkIfDisableHints();
@@ -314,6 +350,7 @@ public class PlayActivity extends AppCompatActivity {
         // Only the attributes are set as then the onPause method is gonna be called.
         currentQuestionNum = 0;
         availableHints = -1;
+        setHintApplied("");
         this.finish();
     }
 }
