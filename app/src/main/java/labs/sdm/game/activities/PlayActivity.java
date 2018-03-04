@@ -2,8 +2,9 @@ package labs.sdm.game.activities;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
@@ -12,28 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import labs.sdm.game.R;
 import labs.sdm.game.managers.QuestionManager;
-import labs.sdm.game.persistence.GameDatabase;
 import labs.sdm.game.pojo.Question;
 import labs.sdm.game.pojo.Score;
 import labs.sdm.game.services.StoreScoreService;
@@ -50,6 +34,7 @@ public class PlayActivity extends AppCompatActivity {
     private ImageButton hintAudience;
     private ImageButton hintFifty;
     private ImageButton hintCall;
+    private ImageButton leaveButton;
 
     private TextView textQuestion;
     private TextView textPlayFor;
@@ -68,7 +53,7 @@ public class PlayActivity extends AppCompatActivity {
         hintAudience = (ImageButton) findViewById(R.id.but_public_comodin);
         hintFifty = (ImageButton) findViewById(R.id.but_half_comodin);
         hintCall = (ImageButton) findViewById(R.id.but_call_comodin);
-
+        leaveButton = (ImageButton) findViewById(R.id.but_close_comodin);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         currentQuestionNum = preferences.getInt("current_question_num", 0);
@@ -90,6 +75,9 @@ public class PlayActivity extends AppCompatActivity {
         buttonAnswer2 = (Button) findViewById(R.id.butAnswer2);
         buttonAnswer3 = (Button) findViewById(R.id.butAnswer3);
         buttonAnswer4 = (Button) findViewById(R.id.butAnswer4);
+
+        leaveButton.getBackground().setColorFilter(
+                getResources().getColor(R.color.play_background_exit), PorterDuff.Mode.MULTIPLY);
 
         questions = QuestionManager.GetQuestions(this);
 
@@ -225,13 +213,27 @@ public class PlayActivity extends AppCompatActivity {
             hintCall.setEnabled(false);
             hintAudience.setEnabled(false);
             hintFifty.setEnabled(false);
+
+            hintCall.getBackground().setColorFilter(
+                    getResources().getColor(R.color.play_background_disabled), PorterDuff.Mode.MULTIPLY);
+            hintAudience.getBackground().setColorFilter(
+                    getResources().getColor(R.color.play_background_disabled), PorterDuff.Mode.MULTIPLY);
+            hintFifty.getBackground().setColorFilter(
+                    getResources().getColor(R.color.play_background_disabled), PorterDuff.Mode.MULTIPLY);
+        }else{
+            hintCall.getBackground().setColorFilter(
+                    getResources().getColor(R.color.play_background_available), PorterDuff.Mode.MULTIPLY);
+            hintAudience.getBackground().setColorFilter(
+                    getResources().getColor(R.color.play_background_available), PorterDuff.Mode.MULTIPLY);
+            hintFifty.getBackground().setColorFilter(
+                    getResources().getColor(R.color.play_background_available), PorterDuff.Mode.MULTIPLY);
         }
     }
 
     // Highlights a button that maybe is the correct answer.
     private void hightLightButtonAnswer(int answer){
-        // TODO: Do this better, it is difficult to see it.
-        getButtonAnswerByIndex(answer).setTypeface(Typeface.DEFAULT_BOLD);
+        getButtonAnswerByIndex(answer).getBackground().setColorFilter(
+                getResources().getColor(R.color.play_background_hightlihgt), PorterDuff.Mode.MULTIPLY);
     }
 
     // Disables an answer button after a hint is used.
@@ -261,10 +263,10 @@ public class PlayActivity extends AppCompatActivity {
 
     // Called for every new question.
     private void deleteHighlightAnswerButtons() {
-        buttonAnswer1.setTypeface(Typeface.DEFAULT);
-        buttonAnswer2.setTypeface(Typeface.DEFAULT);
-        buttonAnswer3.setTypeface(Typeface.DEFAULT);
-        buttonAnswer4.setTypeface(Typeface.DEFAULT);
+        buttonAnswer1.getBackground().clearColorFilter();
+        buttonAnswer2.getBackground().clearColorFilter();
+        buttonAnswer3.getBackground().clearColorFilter();
+        buttonAnswer4.getBackground().clearColorFilter();
     }
 
     // TODO: Show confirmation dialog.
