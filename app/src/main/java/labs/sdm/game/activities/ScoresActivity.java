@@ -142,12 +142,13 @@ public class ScoresActivity extends AppCompatActivity {
                             // Deletes the score from DB.
                             new DeleteLocalScoreAsyncTask(ScoresActivity.this, score).execute();
 
+                            // Hides the selector, so after removing an element looks like no one is selected.
                             localTableScores.setSelector(android.R.color.transparent);
 
                             // Deletes the score from the list of scores and udpates the view.
                             localScores.remove(getScoreHashMap(score.getName(),String.valueOf(score.getScore())));
                             localAdapter.notifyDataSetChanged();
-                            
+
                             // It's set to null as in this way a score it's not deleted twice in
                             // different attempts. In other words, another row must be selected to delete again.
                             selectedLocalScore = null;
