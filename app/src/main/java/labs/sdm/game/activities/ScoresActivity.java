@@ -27,6 +27,9 @@ import labs.sdm.game.persistence.GameDatabase;
 import labs.sdm.game.pojo.HighScore;
 import labs.sdm.game.pojo.Score;
 import labs.sdm.game.services.GetFriendHighScoresService;
+import labs.sdm.game.tasks.DeleteLocalScoreAsyncTask;
+import labs.sdm.game.tasks.FindScoreByNameAndPointsAsyncTask;
+import labs.sdm.game.tasks.GetLocalScoresAsyncTask;
 
 public class ScoresActivity extends AppCompatActivity {
 
@@ -81,7 +84,7 @@ public class ScoresActivity extends AppCompatActivity {
                 // This object is an aysnc task and when it's required, it's result is get.
                 // A call to the DB to get the Score object is needed as for deleting it we need
                 // that the Score id matches to the one in the database, and here we don't know it.
-                selectedLocalScore = new FindScoreByNameAndPointsAsyncTask(user, points).execute();
+                selectedLocalScore = new FindScoreByNameAndPointsAsyncTask(ScoresActivity.this,user, points).execute();
             }
         });
 
@@ -125,7 +128,7 @@ public class ScoresActivity extends AppCompatActivity {
                 Score score = getSelectedScore();
                 if(score != null) {
                     // Deletes the score from DB.
-                    new DeleteLocalScoreAsyncTask(score).execute();
+                    new DeleteLocalScoreAsyncTask(this,score).execute();
 
                     // Deletes the score from the list of scores and udpates the view.
                     localScores.remove(getScoreHashMap(score.getName(),String.valueOf(score.getScore())));
@@ -188,60 +191,6 @@ public class ScoresActivity extends AppCompatActivity {
 
     // Calls the aysnc task to get the ordered Local scores.
     private void getLocalScores() {
-        new GetLocalScoresAsyncTask().execute();
-    }
-
-
-    private class GetLocalScoresAsyncTask extends AsyncTask<Void, Score, Void>{
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            List<Score> scores = GameDatabase.getGameDatabase(ScoresActivity.this).scoreDAO().getOrderedScores();
-
-            for (Score score : scores)
-            {
-                publishProgress(score);
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Score... score){
-            addLocalScore(score[0]);
-        }
-    }
-
-    private class DeleteLocalScoreAsyncTask extends AsyncTask<Void, Void, Void>{
-
-        // TODO: Refactor this to pass parameters using parameters in execute.
-        // https://stackoverflow.com/questions/6053602/what-arguments-are-passed-into-asynctaskarg1-arg2-arg3
-        private Score deletedScore;
-
-        public DeleteLocalScoreAsyncTask(Score deletedScore) {
-            this.deletedScore = deletedScore;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            GameDatabase.getGameDatabase(ScoresActivity.this).scoreDAO().deleteScore(deletedScore);
-            return null;
-        }
-    }
-
-    private class FindScoreByNameAndPointsAsyncTask extends AsyncTask<Void, Void, Score>{
-
-        private String user;
-        private int points;
-
-        public FindScoreByNameAndPointsAsyncTask(String user, int points) {
-            this.user = user;
-            this.points = points;
-        }
-
-        @Override
-        protected Score doInBackground(Void... voids) {
-            return GameDatabase.getGameDatabase(ScoresActivity.this).scoreDAO().findScoreByUserandScore(user,points);
-        }
+        new GetLocalScoresAsyncTask(this).execute();
     }
 }

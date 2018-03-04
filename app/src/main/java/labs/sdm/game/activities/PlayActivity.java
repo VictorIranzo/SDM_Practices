@@ -249,6 +249,7 @@ public class PlayActivity extends AppCompatActivity {
 
         final Score score = new Score(user, prize);
 
+        // TODO: Move to a service.
         new Thread(new Runnable() {
             @Override
             public void run() {
