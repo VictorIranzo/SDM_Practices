@@ -39,6 +39,8 @@ public class ScoresActivity extends AppCompatActivity {
     public ArrayList<HashMap<String,String>> localScores = new ArrayList<>();
     public ArrayList<HashMap<String,String>> friendsScores = new ArrayList<>();
 
+    public ListView localTableScores;
+
     public SimpleAdapter localAdapter;
     public SimpleAdapter friendsAdapter;
 
@@ -68,7 +70,7 @@ public class ScoresActivity extends AppCompatActivity {
         host.setCurrentTab(0);
 
         // Creates a SimpleAdapter for the Local tab list of scores.
-        ListView localTableScores = findViewById(R.id.list1);
+        localTableScores = findViewById(R.id.list1);
 
          localAdapter = new SimpleAdapter(this, localScores, R.layout.score_list_row,
                 new String[]{"player","score"}, new int[]{R.id.textName, R.id.textScore});
@@ -87,7 +89,9 @@ public class ScoresActivity extends AppCompatActivity {
                 // A call to the DB to get the Score object is needed as for deleting it we need
                 // that the Score id matches to the one in the database, and here we don't know it.
                 selectedLocalScore = new FindScoreByNameAndPointsAsyncTask(ScoresActivity.this,user, points).execute();
-            }
+
+                localTableScores.setSelector(android.R.color.darker_gray);
+                }
         });
 
         // Creates a SimpleAdapter for the Friends tab list of scores.
@@ -129,7 +133,6 @@ public class ScoresActivity extends AppCompatActivity {
             case R.id.action_bar_delete:
                 final Score score = getSelectedScore();
                 if(score != null) {
-
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle(getString(R.string.dialog_delete_score));
 
@@ -139,10 +142,12 @@ public class ScoresActivity extends AppCompatActivity {
                             // Deletes the score from DB.
                             new DeleteLocalScoreAsyncTask(ScoresActivity.this, score).execute();
 
+                            localTableScores.setSelector(android.R.color.transparent);
+
                             // Deletes the score from the list of scores and udpates the view.
                             localScores.remove(getScoreHashMap(score.getName(),String.valueOf(score.getScore())));
                             localAdapter.notifyDataSetChanged();
-
+                            
                             // It's set to null as in this way a score it's not deleted twice in
                             // different attempts. In other words, another row must be selected to delete again.
                             selectedLocalScore = null;
