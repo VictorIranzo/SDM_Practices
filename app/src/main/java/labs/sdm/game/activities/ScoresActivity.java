@@ -1,9 +1,11 @@
 package labs.sdm.game.activities;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -125,20 +127,31 @@ public class ScoresActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.action_bar_delete:
-                Score score = getSelectedScore();
+                final Score score = getSelectedScore();
                 if(score != null) {
-                    // Deletes the score from DB.
-                    new DeleteLocalScoreAsyncTask(this,score).execute();
 
-                    // Deletes the score from the list of scores and udpates the view.
-                    localScores.remove(getScoreHashMap(score.getName(),String.valueOf(score.getScore())));
-                    localAdapter.notifyDataSetChanged();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle(getString(R.string.dialog_delete_score));
 
-                    // It's set to null as in this way a score it's not deleted twice in
-                    // different attempts. In other words, another row must be selected to delete again.
-                    selectedLocalScore = null;
+                    builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            // Deletes the score from DB.
+                            new DeleteLocalScoreAsyncTask(ScoresActivity.this, score).execute();
+
+                            // Deletes the score from the list of scores and udpates the view.
+                            localScores.remove(getScoreHashMap(score.getName(),String.valueOf(score.getScore())));
+                            localAdapter.notifyDataSetChanged();
+
+                            // It's set to null as in this way a score it's not deleted twice in
+                            // different attempts. In other words, another row must be selected to delete again.
+                            selectedLocalScore = null;
+                        }
+                    });
+
+                    builder.setNegativeButton(android.R.string.no, null);
+                    builder.show();
                 }
-                // TODO: Show a Toast message.
         }
 
         // This is required, as the Back arrow click must be handled in this method.

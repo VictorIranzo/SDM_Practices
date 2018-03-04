@@ -26,4 +26,11 @@
     <string name="play_for">Jugar por: </string>
     <string name="money">€</string>
     <string name="numQuestion">Pregunta: </string>
+
+    <string name="dialog_leave">¿Estás seguro de abandonar la partida? </string>
+    <string name="dialog_prize">Tu premio es: </string>
+    <string name="dialog_numHints">Tus ayudas disponibles son: </string>
+    <string name="dialog_Lose">Has perdido. </string>
+    <string name="dialog_Win">Enhorabuena! Has ganado. </string>
+    <string name="dialog_delete_score">¿Estás seguro de eliminar esta puntuación? </string>
 </resources>

@@ -1,10 +1,12 @@
 package labs.sdm.game.activities;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +37,7 @@ import labs.sdm.game.persistence.GameDatabase;
 import labs.sdm.game.pojo.Question;
 import labs.sdm.game.pojo.Score;
 import labs.sdm.game.services.StoreScoreService;
+import labs.sdm.game.tasks.AddScoreAsyncTask;
 
 public class PlayActivity extends AppCompatActivity {
 
@@ -112,8 +115,8 @@ public class PlayActivity extends AppCompatActivity {
         currentQuestion = questions.get(currentQuestionNum);
 
         textQuestion.setText(currentQuestion.getText());
-        textPlayFor.setText(getString(R.string.play_for) + prizes[currentQuestionNum] + getString(R.string.money));
-        textNumQuestion.setText(getString(R.string.numQuestion) + currentQuestion.getNumber());
+        textPlayFor.setText(getString(R.string.play_for) + " " + prizes[currentQuestionNum] + " " + getString(R.string.money));
+        textNumQuestion.setText(getString(R.string.numQuestion) + " " + currentQuestion.getNumber());
 
         buttonAnswer1.setText(currentQuestion.getAnswer1());
         buttonAnswer2.setText(currentQuestion.getAnswer2());
@@ -127,14 +130,48 @@ public class PlayActivity extends AppCompatActivity {
     // If the answer is correct, we pass to the next question. If not, the game is ended.
     private void checkIfCorrect(int answer) {
         if(Integer.parseInt(currentQuestion.getRight()) == answer) {
-            currentQuestionNum++;
-            GetNextQuestion();
+            if(currentQuestionNum == 14){
+                winDialogAndEnd();
+                storeScore(prizes[currentQuestionNum]);
+            }
+            else {
+                currentQuestionNum++;
+                GetNextQuestion();
+            }
         } else{
             // The order of this 2 method calls is important, as the score stored depends on the current
             // question number, that is set to 0 in the endGame() method.
+            showLoseDialog();
             storeScore(getScoreWhenLose());
-            endGame();
         }
+    }
+
+    private void showLoseDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.dialog_Lose));
+        builder.setMessage(getString(R.string.dialog_prize) + " " + getScoreWhenLose() + " " + getString(R.string.money));
+        builder.setPositiveButton(android.R.string.yes,null);
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                endGame();
+            }
+        });
+        builder.create().show();
+    }
+
+    private void winDialogAndEnd() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.dialog_Win));
+        builder.setMessage(getString(R.string.dialog_prize) + " " + prizes[currentQuestionNum] + " " + getString(R.string.money));
+        builder.setPositiveButton(android.R.string.yes,null);
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                endGame();
+            }
+        });
+        builder.create().show();
     }
 
     // When the game is lost, the score depends on the question reached.
@@ -235,27 +272,37 @@ public class PlayActivity extends AppCompatActivity {
     public void butLeaveonClicked(View v){
         // If the game is leaved in the first question, the actual prize is 0. Otherwise, it can be
         // get from the prizes array.
-        if(currentQuestionNum - 1 < 0) storeScore(0);
-        else storeScore(prizes[currentQuestionNum-1]);
+        int aux;
+        if(currentQuestionNum - 1 < 0) aux = 0;
+        else aux = prizes[currentQuestionNum-1];
+        final int money = aux;
 
-        endGame();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.dialog_leave));
+        builder.setMessage(getString(R.string.dialog_prize) + " " + money + getString(R.string.money) + '\n' +
+                getString(R.string.dialog_numHints) + " " + availableHints);
+
+        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                storeScore(money);
+                endGame();
+            }
+        });
+
+        builder.setNegativeButton(android.R.string.no, null);
+        builder.show();
     }
 
-    // Stores the score using a new thread.
+    // Stores the score in the DB and the server.
     private void storeScore(int prize) {
-        // Store in local DB.
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String user = prefs.getString("user_name","");
 
         final Score score = new Score(user, prize);
 
-        // TODO: Move to a service.
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                GameDatabase.getGameDatabase(PlayActivity.this).scoreDAO().addScore(score);
-            }
-        }).start();
+        // Store in local DB.
+        new AddScoreAsyncTask(this,score).execute();
 
         // Store in the server.
         new StoreScoreService(this).executeService(user,prize);
