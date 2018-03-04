@@ -5,28 +5,33 @@
     <string name="app_name">¿Quién quiere ser millonario?</string>
 
     <!--Strings used in the Dashboard activity-->
-    <string name="play">Jugar</string>
-    <string name="scores">Puntuaciones</string>
-    <string name="settings">Configuración</string>
-    <string name="about">Acerca de</string>
+    <string name="title_play">Jugar</string>
+    <string name="title_scores">Puntuaciones</string>
+    <string name="title_settings">Configuración</string>
+    <string name="title_about">Acerca de</string>
 
+    <!--Strings used in the About activity-->
     <string name="about_text">Creado por Víctor Iranzo</string>
     <string name="creator_name">Víctor Iranzo</string>
 
+    <!--Strings used in the Settings activity-->
     <string name="user_name">Nombre:</string>
     <string name="preference_name_hint">Introduce tu nombre</string>
     <string name="times_help">¿Cuántas veces puedes pedir ayuda?</string>
     <string name="add_friend">Añadir amigo</string>
     <string name="enter_friend_name">Introduce el nombre de tu amigo</string>
 
+    <!--Strings used in the Scores activity-->
     <string name="tab_local">Local</string>
     <string name="tab_friends">Amigos</string>
     <string name="delete_score">Eliminar puntuación local</string>
 
+    <!--Strings used in the Play activity-->
     <string name="play_for">Jugar por: </string>
     <string name="money">€</string>
     <string name="numQuestion">Pregunta: </string>
 
+    <!-- Dialogs -->
     <string name="dialog_leave">¿Estás seguro de abandonar la partida? </string>
     <string name="dialog_prize">Tu premio es: </string>
     <string name="dialog_numHints">Tus ayudas disponibles son: </string>
