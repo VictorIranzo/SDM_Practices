@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import labs.sdm.game.R;
+import labs.sdm.game.services.AddFriendService;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -69,81 +70,12 @@ public class SettingsActivity extends AppCompatActivity {
     public void butAddFriendClicked(View v) {
         String user = ((EditText) findViewById(R.id.etUserName)).getText().toString();
         String friend = ((EditText) findViewById(R.id.nameFriendText)).getText().toString();
-        new AddFriendAsyncTask(user,friend).execute();
+
+        new AddFriendService(this).executeService(user,friend);
     }
 
-    private void showMessageResultAndEmptyFriendNameText(String message) {
+    public void showMessageResultAndEmptyFriendNameText(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         ((EditText) findViewById(R.id.nameFriendText)).setText("");
-    }
-
-    private class AddFriendAsyncTask extends AsyncTask<Void, String, Void>
-    {
-
-        private String user;
-        private String friend;
-
-        public AddFriendAsyncTask(String user, String friend) {
-            this.user = user;
-            this.friend = friend;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            String url = "https://wwtbamandroid.appspot.com/rest/friends";
-
-            RequestQueue queue = Volley.newRequestQueue(SettingsActivity.this);
-
-            Response.Listener<String> responseListener = new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    // TODO: Move this messages to strings.xml
-                    onProgressUpdate("Friend added correctly");
-                }
-            };
-
-            Response.ErrorListener errorListener = new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError volleyError) {
-                    // TODO: Move this messages to strings.xml
-                    String message = "An error occured.";
-                    if (volleyError instanceof NetworkError) {
-                        message = "Cannot connect to Internet...Please check your connection!";
-                    } else if (volleyError instanceof ServerError) {
-                        message = "The server could not be found. Please try again after some time!!";
-                    } else if (volleyError instanceof AuthFailureError) {
-                        message = "Cannot connect to Internet...Please check your connection!";
-                    } else if (volleyError instanceof ParseError) {
-                        message = "Parsing error! Please try again after some time!!";
-                    } else if (volleyError instanceof NoConnectionError) {
-                        message = "Cannot connect to Internet...Please check your connection!";
-                    } else if (volleyError instanceof TimeoutError) {
-                        message = "Connection TimeOut! Please check your internet connection.";
-                    }
-
-                    onProgressUpdate(message);
-                }
-            };
-
-            StringRequest postRequest = new StringRequest(Request.Method.POST,url,responseListener, errorListener){
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String,String> params = new HashMap<String,String>();
-                    params.put("name",user);
-                    params.put("friend_name",friend);
-
-                    return params;
-                }
-            };
-
-            queue.add(postRequest);
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(String... message){
-            showMessageResultAndEmptyFriendNameText(message[0]);
-        }
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 import labs.sdm.game.pojo.Question;
 
-public class QuestionGenerator {
+public class QuestionFakeGenerator {
     public static List<Question> generateQuestionList() {
         List<Question> list = new ArrayList<Question>();
         Question q = null;

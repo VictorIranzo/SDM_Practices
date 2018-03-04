@@ -34,6 +34,7 @@ import labs.sdm.game.managers.QuestionManager;
 import labs.sdm.game.persistence.GameDatabase;
 import labs.sdm.game.pojo.Question;
 import labs.sdm.game.pojo.Score;
+import labs.sdm.game.services.StoreScoreService;
 
 public class PlayActivity extends AppCompatActivity {
 
@@ -256,7 +257,7 @@ public class PlayActivity extends AppCompatActivity {
         }).start();
 
         // Store in the server.
-        new StoreScoreServerAsyncTask(user,prize).execute();
+        new StoreScoreService(this).executeService(user,prize);
     }
 
     private void endGame() {
@@ -264,70 +265,5 @@ public class PlayActivity extends AppCompatActivity {
         currentQuestionNum = 0;
         availableHints = -1;
         this.finish();
-    }
-
-    private void showErrorMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    private class StoreScoreServerAsyncTask extends AsyncTask<Void, String, Void>{
-
-        private String name;
-        private int score;
-
-        public StoreScoreServerAsyncTask(String name, int socre) {
-            this.name = name;
-            this.score = socre;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            String url = "https://wwtbamandroid.appspot.com/rest/highscores";
-
-            RequestQueue queue = Volley.newRequestQueue(PlayActivity.this);
-
-            Response.ErrorListener errorListener = new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError volleyError) {
-                    // TODO: Move this messages to strings.xml
-                    String message = "An error occured.";
-                    if (volleyError instanceof NetworkError) {
-                        message = "Cannot connect to Internet...Please check your connection!";
-                    } else if (volleyError instanceof ServerError) {
-                        message = "The server could not be found. Please try again after some time!!";
-                    } else if (volleyError instanceof AuthFailureError) {
-                        message = "Cannot connect to Internet...Please check your connection!";
-                    } else if (volleyError instanceof ParseError) {
-                        message = "Parsing error! Please try again after some time!!";
-                    } else if (volleyError instanceof NoConnectionError) {
-                        message = "Cannot connect to Internet...Please check your connection!";
-                    } else if (volleyError instanceof TimeoutError) {
-                        message = "Connection TimeOut! Please check your internet connection.";
-                    }
-
-                    onProgressUpdate(message);
-                }
-            };
-
-            StringRequest postRequest = new StringRequest(Request.Method.PUT, url, null, errorListener) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("name", name);
-                    params.put("score", String.valueOf(score));
-
-                    return params;
-                }
-            };
-
-            queue.add(postRequest);
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(String... message){
-            showErrorMessage(message[0]);
-        }
     }
 }
