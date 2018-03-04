@@ -40,4 +40,16 @@
     <string name="dialog_Lose">You have lose </string>
     <string name="dialog_Win">Congratulations! You have win </string>
     <string name="dialog_delete_score">Are you sure you want to delete this score? </string>
+
+    <!-- Errors -->
+    <string name="error_occured">An error occured</string>
+    <string name="error_network">Cannot connect to Internet...Please check your connection!</string>
+    <string name="error_server">The server could not be found. Please try again after some time!!</string>
+    <string name="error_authorization">Cannot connect to Internet...Please check your authorization permissions!</string>
+    <string name="error_parsing">Parsing error! Please contact with your system provider</string>
+    <string name="error_noconnection">Cannot connect to Internet...Please establish a connection!</string>
+    <string name="error_timeot">Connection TimeOut! Please check your internet connection.</string>
+
+    <!-- Messages -->
+    <string name="msg_friend_added">Friend added correctly</string>
 </resources>

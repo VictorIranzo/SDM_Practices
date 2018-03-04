@@ -17,6 +17,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+import labs.sdm.game.R;
 import labs.sdm.game.activities.ScoresActivity;
 import labs.sdm.game.pojo.HighScore;
 import labs.sdm.game.pojo.HighScoreList;
@@ -50,20 +51,19 @@ public class GetFriendHighScoresService {
         Response.ErrorListener errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                // TODO: Move this messages to strings.xml
-                String message = "An error occured.";
+                String message = context.getString(R.string.error_occured);
                 if (volleyError instanceof NetworkError) {
-                    message = "Cannot connect to Internet...Please check your connection!";
+                    message = context.getString(R.string.error_network);
                 } else if (volleyError instanceof ServerError) {
-                    message = "The server could not be found. Please try again after some time!!";
+                    message = context.getString(R.string.error_server);
                 } else if (volleyError instanceof AuthFailureError) {
-                    message = "Cannot connect to Internet...Please check your connection!";
+                    message = context.getString(R.string.error_authorization);
                 } else if (volleyError instanceof ParseError) {
-                    message = "Parsing error! Please try again after some time!!";
+                    message = context.getString(R.string.error_parsing);
                 } else if (volleyError instanceof NoConnectionError) {
-                    message = "Cannot connect to Internet...Please check your connection!";
+                    message = context.getString(R.string.error_noconnection);
                 } else if (volleyError instanceof TimeoutError) {
-                    message = "Connection TimeOut! Please check your internet connection.";
+                    message = context.getString(R.string.error_timeot);
                 }
 
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show();

@@ -42,4 +42,16 @@
     <string name="dialog_Lose">Has perdido </string>
     <string name="dialog_Win">Enhorabuena! Has ganado </string>
     <string name="dialog_delete_score">¿Estás seguro de eliminar esta puntuación? </string>
+
+    <!-- Errors -->
+    <string name="error_occured">Ocurrió un error</string>
+    <string name="error_network">No se puede conectar a internet. Por favor, revisa tu conexión!</string>
+    <string name="error_authorization">No se puede conectar a Internet. Por favor, revisa tus permisos de autorización!</string>
+    <string name="error_server">No se puede encontrar el servidor. Por favor, inténtalo de nuevo en un rato!!</string>
+    <string name="error_parsing">Error de serialización! Por favor, contacta con tu proveedor</string>
+    <string name="error_noconnection">No se puede contectar a Internet. Por favor, establece una conexión!</string>
+    <string name="error_timeot">No se obtuvo respuesta del servidor! Por favor, revisa tu conexión a internet.</string>
+
+    <!-- Messages -->
+    <string name="msg_friend_added">Amigo añadido correctamente</string>
 </resources>

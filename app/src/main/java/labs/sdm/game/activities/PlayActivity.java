@@ -310,7 +310,6 @@ public class PlayActivity extends AppCompatActivity {
         buttonAnswer4.getBackground().clearColorFilter();
     }
 
-    // TODO: Show confirmation dialog.
     // Stores score and ends the game.
     public void butLeaveonClicked(View v){
         // If the game is leaved in the first question, the actual prize is 0. Otherwise, it can be
