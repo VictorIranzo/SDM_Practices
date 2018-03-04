@@ -28,12 +28,16 @@
     <string name="play_for">Play for: </string>
     <string name="money">$</string>
     <string name="numQuestion">Question: </string>
+    <string name="tooltip_fifty">Removes 2 wrong possible answers</string>
+    <string name="tooltip_audience">Asks the audience for the right answer</string>
+    <string name="tooltip_call">Calls a friend for asking the right answer</string>
+    <string name="tooltip_leave">Leaves the game with the accumulated prize.</string>
 
     <!-- Dialogs -->
     <string name="dialog_leave">Are you sure you want to leave the game? </string>
     <string name="dialog_prize">Your prize is: </string>
     <string name="dialog_numHints">Your available hints: </string>
-    <string name="dialog_Lose">You have lose. </string>
-    <string name="dialog_Win">Congratulations! You have win. </string>
+    <string name="dialog_Lose">You have lose </string>
+    <string name="dialog_Win">Congratulations! You have win </string>
     <string name="dialog_delete_score">Are you sure you want to delete this score? </string>
 </resources>

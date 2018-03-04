@@ -86,7 +86,6 @@ public class PlayActivity extends AppCompatActivity {
         hintApplied = preferences.getString("hint_applied","");
 
         GetNextQuestion();
-        checkIfDisableHints();
     }
 
     // This is the unique place where this preferences is stored. It is called when we click Back,
@@ -154,15 +153,21 @@ public class PlayActivity extends AppCompatActivity {
     private void applyHintAfterPause()
     {
         switch(hintApplied){
+            case "":
+                checkIfDisableHints();
+                break;
             case "call":
                 hightLightButtonAnswer(Integer.parseInt(currentQuestion.getPhone()));
+                checkIfDisableHints();
                 break;
             case "audience":
                 hightLightButtonAnswer(Integer.parseInt(currentQuestion.getAudience()));
+                checkIfDisableHints();
                 break;
             case "fifty":
                 disabledButtonAnswer(Integer.parseInt(currentQuestion.getFifty1()));
                 disabledButtonAnswer(Integer.parseInt(currentQuestion.getFifty2()));
+                checkIfDisableHints();
                 break;
         }
     }
@@ -244,8 +249,8 @@ public class PlayActivity extends AppCompatActivity {
     // After using a hint and when the activity is created this check is passed to disable hint buttons
     // if no more hints are available.
     private void checkIfDisableHints(){
-        if(availableHints < 1){
-            // TODO: Review if this has to be enabled at the end of the game.
+        // In case that a hint has been used in this question or we don't have more hints, they are disabled.
+        if(availableHints < 1 || hintApplied!=""){
             hintCall.setEnabled(false);
             hintAudience.setEnabled(false);
             hintFifty.setEnabled(false);
@@ -256,7 +261,7 @@ public class PlayActivity extends AppCompatActivity {
                     getResources().getColor(R.color.play_background_disabled), PorterDuff.Mode.MULTIPLY);
             hintFifty.getBackground().setColorFilter(
                     getResources().getColor(R.color.play_background_disabled), PorterDuff.Mode.MULTIPLY);
-        }else{
+        }else {
             hintCall.getBackground().setColorFilter(
                     getResources().getColor(R.color.play_background_available), PorterDuff.Mode.MULTIPLY);
             hintAudience.getBackground().setColorFilter(
