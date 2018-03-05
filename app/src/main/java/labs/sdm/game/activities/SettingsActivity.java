@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -57,11 +58,35 @@ public class SettingsActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    @Override
+    public void onBackPressed(){
+        if(userNameText.getText().toString().isEmpty()){
+            Toast.makeText(this, getString(R.string.msg_enter_user_name), Toast.LENGTH_SHORT).show();
+        }
+        else{
+            finish();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if(userNameText.getText().toString().isEmpty()){
+                    Toast.makeText(this, getString(R.string.msg_enter_user_name), Toast.LENGTH_SHORT).show();
+                } else {
+                    return super.onOptionsItemSelected(item);
+                }
+                break;
+        }
+        return true;
+    }
+
     // Sets the values of the components to the ones stored in the SharedPreferences.
     @Override
     protected void onResume() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        userNameText.setText(preferences.getString("user_name",""));
+        userNameText.setText(preferences.getString("user_name","default_user"));
         hintsSpinner.setSelection(preferences.getInt("total_hints",3));
 
         super.onResume();
@@ -71,6 +96,15 @@ public class SettingsActivity extends AppCompatActivity {
         String user = ((EditText) findViewById(R.id.etUserName)).getText().toString();
         String friend = ((EditText) findViewById(R.id.nameFriendText)).getText().toString();
 
+        if(user.isEmpty()){
+            Toast.makeText(this, getString(R.string.msg_enter_user_name), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(friend.isEmpty()) {
+            Toast.makeText(this, getString(R.string.msg_enter_friend_name), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
         new AddFriendService(this).executeService(user,friend);
     }
 

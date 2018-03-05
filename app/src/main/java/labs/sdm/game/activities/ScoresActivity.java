@@ -207,7 +207,7 @@ public class ScoresActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         ((ProgressBar)findViewById(R.id.progressBar)).setIndeterminate(true);
 
-        new GetFriendHighScoresService(this).executeService(preferences.getString("user_name",""));
+        new GetFriendHighScoresService(this).executeService(preferences.getString("user_name","default_user"));
     }
 
     // Calls the aysnc task to get the ordered Local scores.

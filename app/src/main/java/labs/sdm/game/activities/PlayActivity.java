@@ -339,7 +339,7 @@ public class PlayActivity extends AppCompatActivity {
     // Stores the score in the DB and the server.
     private void storeScore(int prize) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String user = prefs.getString("user_name","");
+        String user = prefs.getString("user_name","default_user");
 
         final Score score = new Score(user, prize);
 

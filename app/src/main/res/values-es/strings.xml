@@ -54,4 +54,7 @@
 
     <!-- Messages -->
     <string name="msg_friend_added">Amigo añadido correctamente</string>
+    <string name="msg_enter_user_name">Por favor, introduce un nombre de usuario</string>
+    <string name="msg_enter_friend_name">Por favor, introduce el nombre de un amigo</string>
+
 </resources>
