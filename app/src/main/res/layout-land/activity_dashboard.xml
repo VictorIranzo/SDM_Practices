@@ -12,7 +12,7 @@
     <!--Buttons equally distributed along the screen to access each activity of the application-->
 
 
-    <Button
+    <ImageButton
         android:id="@+id/bPlay"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -21,13 +21,16 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:onClick="dashboardButtonClicked"
+        android:src="@drawable/play"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
         android:text="@string/title_play"
         app:layout_constraintBottom_toTopOf="@+id/bSettings"
         app:layout_constraintEnd_toStartOf="@+id/bScores"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/bSettings"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -36,6 +39,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:onClick="dashboardButtonClicked"
+        android:src="@drawable/settings"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
         android:text="@string/title_settings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/bAbout"
@@ -43,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/bPlay" />
 
 
-    <Button
+    <ImageButton
         android:id="@+id/bScores"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -52,13 +58,16 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:onClick="dashboardButtonClicked"
+        android:src="@drawable/scores"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
         android:text="@string/title_scores"
         app:layout_constraintBottom_toTopOf="@+id/bAbout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/bPlay"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/bAbout"
         android:layout_width="0dp"
         android:layout_height="0dp"
