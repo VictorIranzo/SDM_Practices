@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_centerVertical="true">
 
-    <!--Displays quotation text on the Top left of the ListView row-->
+    <!--Displays text on the Top left of the ListView row-->
     <TextView
         android:id="@+id/textName"
         android:layout_width="wrap_content"
