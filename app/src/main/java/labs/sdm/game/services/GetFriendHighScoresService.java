@@ -1,6 +1,8 @@
 package labs.sdm.game.services;
 
 import android.net.Uri;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -45,6 +47,9 @@ public class GetFriendHighScoresService {
                 for (HighScore score: listScores.getScores()) {
                     context.addFriendScore(score);
                 }
+
+                // The space that uses the progress bar is removed.
+                ((ProgressBar)context.findViewById(R.id.progressBar)).setVisibility(View.GONE);
             }
         };
 

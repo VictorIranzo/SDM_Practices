@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
@@ -204,6 +205,7 @@ public class ScoresActivity extends AppCompatActivity {
     // Calls the aysnc task to get the ordered Friends scores.
     private void getFriendsScores() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        ((ProgressBar)findViewById(R.id.progressBar)).setIndeterminate(true);
 
         new GetFriendHighScoresService(this).executeService(preferences.getString("user_name",""));
     }

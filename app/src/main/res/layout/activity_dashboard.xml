@@ -21,6 +21,7 @@
         android:layout_marginTop="8dp"
         android:onClick="dashboardButtonClicked"
         android:text="@string/title_play"
+        android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/bScores"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +30,7 @@
 
     <Button
         android:id="@+id/bScores"
-        android:drawableStart="@drawable/ic_list_white_24dp"
+        android:drawableStart="@drawable/score"
         android:gravity="start|center_vertical"
         android:layout_width="0dp"
         android:layout_height="0dp"
