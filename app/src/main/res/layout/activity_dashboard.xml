@@ -30,7 +30,7 @@
 
     <Button
         android:id="@+id/bScores"
-        android:drawableStart="@drawable/score"
+        android:drawableStart="@drawable/ic_list_white_24dp"
         android:gravity="start|center_vertical"
         android:layout_width="0dp"
         android:layout_height="0dp"
