@@ -8,4 +8,6 @@
     <color name="play_background_available"> #a7d84c</color>
     <color name="play_background_disabled"> #ff9e9e9e</color>
     <color name="play_background_exit"> #ffff0000</color>
+    <color name="dashboard_button_blue">#ff0099cc</color>
+    <color name="dashboard_button_icon">#ffffff</color>
 </resources>
