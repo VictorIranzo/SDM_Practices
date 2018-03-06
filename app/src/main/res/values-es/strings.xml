@@ -5,25 +5,56 @@
     <string name="app_name">¿Quién quiere ser millonario?</string>
 
     <!--Strings used in the Dashboard activity-->
-    <string name="play">Jugar</string>
-    <string name="scores">Puntuaciones</string>
-    <string name="settings">Configuración</string>
-    <string name="about">Acerca de</string>
+    <string name="title_play">Jugar</string>
+    <string name="title_scores">Puntuaciones</string>
+    <string name="title_settings">Configuración</string>
+    <string name="title_about">Acerca de</string>
 
+    <!--Strings used in the About activity-->
     <string name="about_text">Creado por Víctor Iranzo</string>
     <string name="creator_name">Víctor Iranzo</string>
 
+    <!--Strings used in the Settings activity-->
     <string name="user_name">Nombre:</string>
     <string name="preference_name_hint">Introduce tu nombre</string>
     <string name="times_help">¿Cuántas veces puedes pedir ayuda?</string>
     <string name="add_friend">Añadir amigo</string>
     <string name="enter_friend_name">Introduce el nombre de tu amigo</string>
 
+    <!--Strings used in the Scores activity-->
     <string name="tab_local">Local</string>
     <string name="tab_friends">Amigos</string>
     <string name="delete_score">Eliminar puntuación local</string>
 
+    <!--Strings used in the Play activity-->
     <string name="play_for">Jugar por: </string>
     <string name="money">€</string>
     <string name="numQuestion">Pregunta: </string>
+    <string name="tooltip_fifty">Elimina 2 posibles respuestas erróneas</string>
+    <string name="tooltip_audience">Pregunta a la audiencia por la respuesta correcta</string>
+    <string name="tooltip_call">Llama a un amigo para preguntarle por la respuesta correcta</string>
+    <string name="tooltip_leave">Abandona el juego con el bote acumulado</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_leave">¿Estás seguro de abandonar la partida? </string>
+    <string name="dialog_prize">Tu premio es: </string>
+    <string name="dialog_numHints">Tus ayudas disponibles son: </string>
+    <string name="dialog_Lose">Has perdido </string>
+    <string name="dialog_Win">Enhorabuena! Has ganado </string>
+    <string name="dialog_delete_score">¿Estás seguro de eliminar esta puntuación? </string>
+
+    <!-- Errors -->
+    <string name="error_occured">Ocurrió un error</string>
+    <string name="error_network">No se puede conectar a internet. Por favor, revisa tu conexión!</string>
+    <string name="error_authorization">No se puede conectar a Internet. Por favor, revisa tus permisos de autorización!</string>
+    <string name="error_server">No se puede encontrar el servidor. Por favor, inténtalo de nuevo en un rato!!</string>
+    <string name="error_parsing">Error de serialización! Por favor, contacta con tu proveedor</string>
+    <string name="error_noconnection">No se puede contectar a Internet. Por favor, establece una conexión!</string>
+    <string name="error_timeot">No se obtuvo respuesta del servidor! Por favor, revisa tu conexión a internet.</string>
+
+    <!-- Messages -->
+    <string name="msg_friend_added">Amigo añadido correctamente</string>
+    <string name="msg_enter_user_name">Por favor, introduce un nombre de usuario</string>
+    <string name="msg_enter_friend_name">Por favor, introduce el nombre de un amigo</string>
+
 </resources>

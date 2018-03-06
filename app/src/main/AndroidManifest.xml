@@ -25,7 +25,7 @@
         <!--Credits activity-->
         <activity
             android:name="labs.sdm.game.activities.AboutActivity"
-            android:label="@string/about"
+            android:label="@string/title_about"
             android:parentActivityName="labs.sdm.game.activities.DashboardActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value="labs.sdm.game.activities.DashboardActivity"></meta-data>
